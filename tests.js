@@ -57,48 +57,52 @@ QUnit.module( "Buscar Participantes", function() {
   var sistema = new SistemaCadastro();
     sistema.adicionarParticipante("João", "Mendes", "jmendes@matrix.com", 56, 1);
     sistema.adicionarParticipante("Carla", "Mendes", "cmendes@matrix.com", 26, 2);
-  
+    
     QUnit.test( "buscar por nome", function( assert ) {
-    var resultados = sistema.buscarParticipantesPorNome("João");
-    assert.equal( resultados.length, 1, "Apenas um registro retornado");
+      var resultados = sistema.buscarParticipantesPorNome("João");
+      assert.equal( resultados.length, 1, "Apenas um registro retornado");
+      
+      var joao = resultados[0];
+      assert.equal( joao.sobrenome, "Mendes", "Sobrenome correto");
+      assert.equal( joao.idade, 56, "Idade correta");
+      assert.equal( joao.sexo, 1, "Sexo Masculino");
+    });
     
-    var joao = resultados[0];
-    assert.equal( joao.sobrenome, "Mendes", "Sobrenome correto");
-    assert.equal( joao.idade, 56, "Idade correta");
-    assert.equal( joao.sexo, 1, "Sexo Masculino");
-  });
-
-  QUnit.test( "buscar por sexo", function( assert ) {
-    var resultados = sistema.buscarParticipantesPorSexo(1);
-    assert.equal( resultados.length, 1, "Apenas um registro retornado");
+    QUnit.test( "buscar por sexo", function( assert ) {
+      var resultados = sistema.buscarParticipantesPorSexo(1);
+      assert.equal( resultados.length, 1, "Apenas um registro retornado");
+      
+      var joao = resultados[0];
+      assert.equal( joao.sobrenome, "Mendes", "Sobrenome correto");
+      assert.equal( joao.idade, 56, "Idade correta");
+      assert.equal( joao.sexo, 1, "Sexo Masculino");
+    });
     
-    var joao = resultados[0];
-    assert.equal( joao.sobrenome, "Mendes", "Sobrenome correto");
-    assert.equal( joao.idade, 56, "Idade correta");
-    assert.equal( joao.sexo, 1, "Sexo Masculino");
-  });
-
-  QUnit.test( "obter quantidade de participantes por sexo", function( assert ) {
-    var resultado = sistema.obterQuantidadeDeParticipantesPorSexo(1);
-    assert.equal( resultado, 1, "Apenas um registro retornado");    
-  });
-
-  QUnit.test( "obter total de participantes", function( assert ) {
-    var resultado = sistema.obterTotalDeParticipantes();
-    assert.equal( resultado, 2, "2 registros");    
-  });
-
-  QUnit.test( "buscar por aprovados e reprovados", function( assert ) {
-    var resultados = sistema.buscarParticipantesAprovados();    
-    assert.equal( resultados.length, 0, "Nenhum participante aprovado");    
+    QUnit.test( "obter quantidade de participantes por sexo", function( assert ) {
+      var resultado = sistema.obterQuantidadeDeParticipantesPorSexo(1);
+      assert.equal( resultado, 1, "Apenas um registro retornado");    
+    });
     
-    resultados = sistema.buscarParticipantesReprovados();    
-    assert.equal( resultados.length, 2, "Todos participantes reprovado");   
+    QUnit.test( "obter total de participantes", function( assert ) {
+      var resultado = sistema.obterTotalDeParticipantes();
+      assert.equal( resultado, 2, "2 registros");    
+    });
     
-    sistema.adicionarNotaAoParticipante("jmendes@matrix.com", 70);
-    var resultados = sistema.buscarParticipantesAprovados();    
-    assert.equal( resultados.length, 1, "1 Participante aprovado");     
-  });
+    QUnit.test( "buscar por aprovados e reprovados", function( assert ) {
+      var resultados = sistema.buscarParticipantesAprovados(); 
+      console.log('resultados',resultados)   
+      assert.equal( resultados.length, 0, "Nenhum participante aprovado");    
+      
+      resultados = sistema.buscarParticipantesReprovados();    
+      console.log('resultados1',resultados)       
+      assert.equal( resultados.length, 2, "Todos participantes reprovado");   
+      
+      sistema.adicionarNotaAoParticipante("jmendes@matrix.com", 70);
+      var resultados = sistema.buscarParticipantesAprovados();    
+      console.log('resultados2',resultados)   
+      
+      assert.equal( resultados.length, 1, "1 Participante aprovado");     
+    });
   
 });
 
