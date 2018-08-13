@@ -90,16 +90,13 @@ QUnit.module( "Buscar Participantes", function() {
     
     QUnit.test( "buscar por aprovados e reprovados", function( assert ) {
       var resultados = sistema.buscarParticipantesAprovados(); 
-      console.log('resultados',resultados)   
       assert.equal( resultados.length, 0, "Nenhum participante aprovado");    
       
-      resultados = sistema.buscarParticipantesReprovados();    
-      console.log('resultados1',resultados)       
+      resultados = sistema.buscarParticipantesReprovados();         
       assert.equal( resultados.length, 2, "Todos participantes reprovado");   
       
       sistema.adicionarNotaAoParticipante("jmendes@matrix.com", 70);
       var resultados = sistema.buscarParticipantesAprovados();    
-      console.log('resultados2',resultados)   
       
       assert.equal( resultados.length, 1, "1 Participante aprovado");     
     });
